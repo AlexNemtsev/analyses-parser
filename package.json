@@ -2,23 +2,25 @@
   "name": "analyses-parser",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build": "tsc",
+    "start": "node --env-file=.env dist/index.js",
+    "dev": "tsx watch --env-file=.env src/index.ts",
+    "eslint": "eslint src --ext .ts  --no-error-on-unmatched-pattern --fix",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "express": "^5.2.1",
     "multer": "^2.0.2",
-    "pdf-parse": "^2.4.5",
-    "pdfjs-dist": "^5.4.624"
+    "pdf-parse": "^2.4.5"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.9",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.39.1",
+    "@types/express": "^5.0.6",
+    "@types/multer": "^2.0.0",
     "@types/node": "^24.10.1",
     "eslint": "^9.39.1",
     "eslint-config-airbnb": "^19.0.4",
@@ -31,6 +33,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "tsx": "^4.21.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4"
   }
