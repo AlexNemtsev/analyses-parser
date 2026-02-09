@@ -8,11 +8,14 @@ const parseName = (textArr: string[]) => {
   return textArr[0].split(' ')[1];
 };
 
-const parseAnalyzeType = (textArr: string[]) => {
+const parseAnalyzeTypeAndNumber = (textArr: string[]) => {
   const str = textArr[2];
   const lastSpaceIndex = str.lastIndexOf(' ');
 
-  return str.slice(0, lastSpaceIndex);
+  return {
+    analyzeType: str.slice(0, lastSpaceIndex),
+    analyzeNumber: str.slice(lastSpaceIndex + 2),
+  };
 };
 
 const getAnalyzeTypeKey = (type: string) => {
@@ -38,7 +41,7 @@ export const getMainData = (pdfResult: TextResult) => {
   const filtered = textArray.slice(nameIndex);
 
   const name = parseName(filtered);
-  const analyzeType = parseAnalyzeType(filtered);
+  const { analyzeType, analyzeNumber } = parseAnalyzeTypeAndNumber(filtered);
   const analyzeTypeKey = getAnalyzeTypeKey(analyzeType);
   const characteristics = filterCharacteristics(filtered);
   const dateStr = textArray[dateIndex];
@@ -63,5 +66,5 @@ export const getMainData = (pdfResult: TextResult) => {
     extracted = normalizedCharacteristics && extractDigitCharacteristics(normalizedCharacteristics);
   }
 
-  return { date, sheetKey: name, analyzeType, values: extracted };
+  return { date, sheetKey: name, analyzeType, values: { ['Номер']: analyzeNumber, ...extracted } };
 };
