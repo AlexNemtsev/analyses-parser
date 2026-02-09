@@ -15,7 +15,7 @@ export const extractCommonUrineCharacteristics = (
       try {
         extracted[key] = value[1];
       } catch {
-        console.error('Не удалось прочитать анализ', char, key);
+        console.error(`Не удалось прочитать анализ ${key}:`, char);
       }
     }
   });
