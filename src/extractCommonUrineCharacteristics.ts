@@ -12,7 +12,11 @@ export const extractCommonUrineCharacteristics = (
     if (keyIndex !== -1) {
       const key = keys[keyIndex];
       const [value] = [...char.matchAll(commonUrineCharacteristics[key])];
-      extracted[key] = value[1];
+      try {
+        extracted[key] = value[1];
+      } catch {
+        console.error('Не удалось прочитать анализ', char, key);
+      }
     }
   });
 
